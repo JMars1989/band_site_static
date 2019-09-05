@@ -17,6 +17,10 @@
     body {
         font-family: "Julius Sans One";
     }
+
+    #pic {
+        box-shadow: 0 10px 12px 0 hsla(0, 0%, 0%, .8);
+    }
 </style>
 <header>
     <nav class="navbar navbar-expand navbar-light bg-light" role="navigation">
@@ -40,10 +44,10 @@
         </div>
     </nav>
 </header>
-<div style="background-color: black;">
+<div style="background-color: hsl(218, 51%, 10%)">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-8 col-lg-7 col-xl-7 mx-auto"><img class="img-fluid" src="pics/logoPic.png" alt="pics"></div>
+            <div class="col-md-8 col-lg-7 col-xl-7 mx-auto"><img class="img-fluid"  id="pic" src="pics/logoPic.png" alt="pics"></div>
         </div>
     </div>
     <div class="container text-center pt-5">
@@ -85,17 +89,17 @@
         xhttp.open("GET", "https://rest.bandsintown.com/artists/formingthevoid/events?app_id=13706c200eb9a2e94dde6d6e2ffd999a&date=upcoming", true);
         xhttp.send();
     </script>
-    <div class="container-fluid &gt; &lt;div class=">
-        <div class="col-md-7 mx-auto text-center">
-            <h2 class="display-4" style="color: #004d99;">Upcoming Shows</h2>
+    <div class="container-fluid">
+        <div class="col-md-7 mx-auto text-center pt-5">
+            <h2 class="display-4" style="color: hsl(218, 75%, 45%);font-weight: bold;background-color: hsl(218, 51%, 10%);">Upcoming Shows</h2>
             <table class="table text-center table-dark">
                 <tbody id="shows"></tbody>
             </table>
         </div>
     </div>
-    <div class="album" style="background-color: black;">
+    <div class="album" style="background-color: hsl(218, 51%, 10%);">
         <div class="container-fluid">
-            <h1 class="display-4 text-center" style="color: #004d99;">Albums</h1>
+            <h1 class="display-4 text-center" style="color: hsl(218, 75%, 45%);font-weight: bold;">Albums</h1>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm"><img class="bd-placeholder-img card-img-top" src="pics/skyward.jpg">
