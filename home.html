@@ -19,15 +19,28 @@
     }
 
     #pic {
-        box-shadow: 0 10px 12px 0 hsla(0, 0%, 0%, .8);
+        box-shadow: 0 20px 22px 0 hsla(0, 0%, 0%, .8);
+    }
+
+    #shows {
+        box-shadow: 0 20px 22px 0 hsla(0, 0%, 0%, .8);
+    }
+
+    #video {
+        box-shadow: 0 20px 22px 0 hsla(0, 0%, 0%, .8);
+    }
+
+    #album {
+        box-shadow: 0 20px 22px 0 hsla(0, 0%, 0%, .8);
     }
 </style>
 <header>
-    <nav class="navbar navbar-expand navbar-light bg-light" role="navigation">
+    <nav class="navbar navbar-expand navbar-light bg-light fixed-top" role="navigation">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="active"><a class="nav-link" href="home.html">Home</a></li>
-                <li><a class="nav-link" href="press.html"sr-only">Press</span></a></li>
+                <li><a class="nav-link" href="#home">Home</a></li>
+                <li><a class="nav-link" href="#upcomingShows">Shows</a></li>
+                <li><a class="nav-link" href="#albums">Albums</a></li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav"><a class="navbar-brand nav-link"
@@ -44,119 +57,136 @@
         </div>
     </nav>
 </header>
-<div style="background-color: hsl(218, 51%, 10%)">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8 col-lg-7 col-xl-7 mx-auto"><img class="img-fluid"  id="pic" src="pics/logoPic.png" alt="pics"></div>
-        </div>
-    </div>
-    <div class="container text-center pt-5">
-        <div class="row">
-            <div class="col">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive" src="https://www.youtube.com/embed/cLUvtkiaZFA" frameborder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-                </div>
-        </div>
-    </div>
-    <script>
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var obj = JSON.parse(this.responseText);
-                for (var i = 0; i < obj.length; i++) {
-                    var day = new Date(obj[i].datetime);
-                    day.toDateString();
-                    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-                    let day2 = `${days[day.getDay()]}, ${months[day.getMonth()]} ${day.getDate()}`;
-                    obj[i].datetime = day2;
-                }
-                txt = '';
-                for (var i = 0; i < obj.length; i++) {
-                    txt += '<tr><td>' + obj[i].datetime + '</td><td>' + obj[i].venue.city + ', ';
-                    if (obj[i].venue.region) {
-                        txt += obj[i].venue.region;
-                    } else {
-                        txt += obj[i].venue.country;
-                    }
-                    txt += '</td><td><a href="' + obj[i].url + '">' + obj[i].venue.name + '</a></td><tr>';
-                }
-                document.getElementById("shows").innerHTML = txt;
-            }
-        };
-        xhttp.open("GET", "https://rest.bandsintown.com/artists/formingthevoid/events?app_id=13706c200eb9a2e94dde6d6e2ffd999a&date=upcoming", true);
-        xhttp.send();
-    </script>
-    <div class="container-fluid">
-        <div class="col-md-7 mx-auto text-center pt-5">
-            <h2 class="display-4" style="color: hsl(218, 75%, 45%);font-weight: bold;background-color: hsl(218, 51%, 10%);">Upcoming Shows</h2>
-            <table class="table text-center table-dark">
-                <tbody id="shows"></tbody>
-            </table>
-        </div>
-    </div>
-    <div class="album" style="background-color: hsl(218, 51%, 10%);">
+
+<body id="home" style="position: relative;" data-spy="scroll" class="pt-5" data-target="navbarSupportedContent">
+
+    <div style="background-color: hsl(218, 51%, 10%);">
         <div class="container-fluid">
-            <h1 class="display-4 text-center" style="color: hsl(218, 75%, 45%);font-weight: bold;">Albums</h1>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm"><img class="bd-placeholder-img card-img-top" src="pics/skyward.jpg">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between aligns-center"><iframe
-                                    style="border: 0; width: 100%; height: 307px;"
-                                    src="https://bandcamp.com/EmbeddedPlayer/album=3399954694/size=large/bgcol=333333/linkcol=0f91ff/artwork=none/transparent=true/"
-                                    seamless=""><a href="http://formingthevoid.bandcamp.com/album/skyward">Skyward by
-                                        Forming the Void</a></iframe></div>
-                        </div>
+                <div class="col-md-8 col-lg-7 col-xl-7 mx-auto"><img class="img-fluid" id="pic" src="pics/logoPic.png"
+                        alt="pics"></div>
+            </div>
+        </div>
+        <div class="container text-center pt-5 ">
+            <div class="row">
+                <div class="col">
+                    <div class="embed-responsive embed-responsive-16by9 mb-5" id="video">
+                        <iframe class="embed-responsive" src="https://www.youtube.com/embed/cLUvtkiaZFA" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm"><img class="bd-placeholder-img card-img-top" src="pics/relic.jpg">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between aligns-center"><iframe
-                                    style="border: 0; width: 100%; height: 406px;"
-                                    src="https://bandcamp.com/EmbeddedPlayer/album=1034333834/size=large/bgcol=333333/linkcol=0f91ff/artwork=none/transparent=true/"
-                                    seamless=""><a href="http://formingthevoid.bandcamp.com/album/relic">Relic by
-                                        Forming the Void</a></iframe></div>
-                        </div>
-                    </div>
+            </div>
+            <script>
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var obj = JSON.parse(this.responseText);
+                        for (var i = 0; i < obj.length; i++) {
+                            var day = new Date(obj[i].datetime);
+                            day.toDateString();
+                            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                            var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                            let day2 = `${days[day.getDay()]}, ${months[day.getMonth()]} ${day.getDate()}`;
+                            obj[i].datetime = day2;
+                        }
+                        txt = '';
+                        for (var i = 0; i < obj.length; i++) {
+                            txt += '<tr><td>' + obj[i].datetime + '</td><td>' + obj[i].venue.city + ', ';
+                            if (obj[i].venue.region) {
+                                txt += obj[i].venue.region;
+                            } else {
+                                txt += obj[i].venue.country;
+                            }
+                            txt += '</td><td><a href="' + obj[i].url + '">' + obj[i].venue.name + '</a></td><tr>';
+                        }
+                        document.getElementById("shows").innerHTML = txt;
+                    }
+                };
+                xhttp.open("GET", "https://rest.bandsintown.com/artists/formingthevoid/events?app_id=13706c200eb9a2e94dde6d6e2ffd999a&date=upcoming", true);
+                xhttp.send();
+            </script>
+            <div class="container-fluid ">
+                <div class="col-md-7 mx-auto text-center ">
+                    <h2 id="upcomingShows" class="display-4  pt-5"
+                        style="color: hsl(218, 75%, 45%);font-weight: bold;background-color: hsl(218, 51%, 10%);">
+                        Upcoming Shows</h2>
+                    <table class="table text-center table-dark">
+                        <tbody id="shows"></tbody>
+                    </table>
                 </div>
-                <div class="col-md-4">
-                    <div class="card shadow-sm"><img class="bd-placeholder-img card-img-top" src="pics/rift.png">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between aligns-center"><iframe
-                                    style="border: 0; width: 100%; height: 373px;"
-                                    src="https://bandcamp.com/EmbeddedPlayer/album=2696210395/size=large/bgcol=333333/linkcol=0f91ff/artwork=none/transparent=true/"
-                                    seamless=""><a href="http://formingthevoid.bandcamp.com/album/rift">Rift by Forming
-                                        the Void</a></iframe></div>
+            </div>
+            <div id="albums" class="album" style="background-color: hsl(218, 51%, 10%);">
+                <div class="container-fluid">
+                    <h1 class="display-4 text-center pt-5" style="color: hsl(218, 75%, 45%);font-weight: bold;">Albums
+                    </h1>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm"><img class="bd-placeholder-img card-img-top"
+                                    src="pics/skyward.jpg">
+                                <div class="card-body" id="album">
+                                    <div  class="d-flex justify-content-between aligns-center"><iframe
+                                            style="border: 0; width: 100%; height: 307px;"
+                                            src="https://bandcamp.com/EmbeddedPlayer/album=3399954694/size=large/bgcol=333333/linkcol=0f91ff/artwork=none/transparent=true/"
+                                            seamless=""><a
+                                                href="http://formingthevoid.bandcamp.com/album/skyward">Skyward by
+                                                Forming the Void</a></iframe></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm"><img class="bd-placeholder-img card-img-top"
+                                    src="pics/relic.jpg">
+                                <div class="card-body" id="album">
+                                    <div  class="d-flex justify-content-between aligns-center"><iframe
+                                            style="border: 0; width: 100%; height: 406px;"
+                                            src="https://bandcamp.com/EmbeddedPlayer/album=1034333834/size=large/bgcol=333333/linkcol=0f91ff/artwork=none/transparent=true/"
+                                            seamless=""><a href="http://formingthevoid.bandcamp.com/album/relic">Relic
+                                                by
+                                                Forming the Void</a></iframe></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card shadow-sm"><img class="bd-placeholder-img card-img-top"
+                                    src="pics/rift.png">
+                                <div class="card-body" id="album">
+                                    <div  class="d-flex justify-content-between aligns-center"><iframe
+                                            style="border: 0; width: 100%; height: 373px;"
+                                            src="https://bandcamp.com/EmbeddedPlayer/album=2696210395/size=large/bgcol=333333/linkcol=0f91ff/artwork=none/transparent=true/"
+                                            seamless=""><a href="http://formingthevoid.bandcamp.com/album/rift">Rift by
+                                                Forming
+                                                the Void</a></iframe></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#user-submit').click(function () {
-                var payload = {
-                    name: $('#user-name').val()
-                };
-                $.ajax({
-                    url: "/users",
-                    type: "POST",
-                    contentType: "application/json",
-                    processData: false,
-                    data: JSON.stringify(payload),
-                    complete: function (data) {
-                        $('#output').html(data.responseText);
-                    }
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#user-submit').click(function () {
+                        var payload = {
+                            name: $('#user-name').val()
+                        };
+                        $.ajax({
+                            url: "/users",
+                            type: "POST",
+                            contentType: "application/json",
+                            processData: false,
+                            data: JSON.stringify(payload),
+                            complete: function (data) {
+                                $('#output').html(data.responseText);
+                            }
+                        });
+                    });
                 });
-            });
-        });
-    </script>
-</div>
+            </script>
+        </div>
+
+</body>
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
     crossorigin="anonymous"></script>
